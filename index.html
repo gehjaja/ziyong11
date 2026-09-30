@@ -1,84 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#171a1f">
-  <title>三角洲行动</title>
-  <style>
-    *{ box-sizing: border-box; }
-    html, body{ margin:0; padding:0; }
-    body{
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding: 24px;
-      background: #171a1f;
-      color: #e6e8ec;
-      font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-      text-align: center;
-    }
-    h1{
-      margin: 0;
-      font-size: clamp(30px, 9vw, 40px);
-      font-weight: 700;
-    }
-    /* ===== 叫人的话：改这里 ===== */
-    p{
-      margin: 0;
-      font-size: 17px;
-      line-height: 1.8;
-      color: #b6bac2;
-    }
-    /* 超链接：点我上号 */
-    a{
-      margin-top: 14px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffb020;
-      text-decoration: none;
-      border-bottom: 2px solid #ffb020;
-      padding-bottom: 2px;
-    }
-    a:active{ opacity: .7; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f7f1e6" />
+<meta name="format-detection" content="telephone=no" />
+<title>在哪，都想石家庄</title>
+<meta name="description" content="不管你在哪座城，这里有一句写给你和石家庄的话。" />
+<style>
+/* ============================================================
+   设计基调：旧信纸 + 砖红。字体用系统中文衬线，秒开、无外链。
+   ============================================================ */
+:root{
+  --paper:#f7f1e6;
+  --paper-2:#f0e7d7;
+  --ink:#211a15;
+  --ink-2:#55493f;
+  --ink-3:#8a7c6e;
+  --brick:#a8342a;
+  --brick-soft:#c25a3c;
+  --line:rgba(120,95,70,.18);
+  --card:#fffdf8;
+  --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",STSong,SimSun,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh;min-height:100dvh;
+  background:
+    radial-gradient(120% 70% at 50% -10%, #fffaf0 0%, rgba(255,250,240,0) 60%),
+    linear-gradient(180deg,var(--paper) 0%, var(--paper-2) 100%);
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+body::after{ /* 极淡的纸纹，纯 CSS，无图片请求 */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:
+    radial-gradient(rgba(120,95,70,.055) 1px, transparent 1.2px),
+    radial-gradient(rgba(120,95,70,.035) 1px, transparent 1.2px);
+  background-size:17px 17px, 29px 29px;
+  background-position:0 0, 9px 13px;
+}
+.wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:calc(var(--safe-t) + 18px) 20px calc(var(--safe-b) + 34px)}
+
+/* ---------------- 顶部 ---------------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px}
+.brand{font-family:var(--serif);font-size:14px;letter-spacing:.18em;color:var(--ink-3)}
+.btn-plain{
+  appearance:none;border:1px solid var(--line);background:rgba(255,253,248,.7);
+  color:var(--ink-2);font-family:var(--sans);font-size:13px;line-height:1;
+  padding:9px 13px;border-radius:999px;cursor:pointer;transition:.18s;
+}
+.btn-plain:active{transform:scale(.96);background:#fff}
+
+/* ---------------- 卡片 ---------------- */
+.card{
+  margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:26px 22px 22px;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 12px 30px -18px rgba(80,55,35,.35);
+}
+.seal{
+  display:inline-flex;align-items:center;gap:7px;font-family:var(--serif);font-size:12.5px;
+  letter-spacing:.14em;color:var(--brick);border:1px solid rgba(168,52,42,.35);
+  background:rgba(168,52,42,.055);border-radius:6px;padding:4px 9px;
+}
+.seal i{width:5px;height:5px;border-radius:50%;background:var(--brick);display:block;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+h1{
+  font-family:var(--serif);font-weight:600;margin:16px 0 0;letter-spacing:.04em;
+  font-size:clamp(30px,10.2vw,42px);line-height:1.24;
+}
+h1 .accent{color:var(--brick)}
+.sub{margin:14px 0 0;color:var(--ink-2);font-size:15.5px;line-height:1.9}
+.rule{height:1px;background:linear-gradient(90deg,var(--line),rgba(120,95,70,.04));margin:22px 0 0}
+
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:16px 0 0;
+  font-size:13px;color:var(--ink-3);min-height:23px;
+}
+.meta b{font-weight:600;color:var(--ink-2);font-family:var(--serif)}
+.dot{width:3px;height:3px;border-radius:50%;background:var(--ink-3);opacity:.5}
+.typing::after{content:"…";opacity:.6;animation:pulse 1.2s ease-in-out infinite}
+
+/* ---------------- 主按钮 ---------------- */
+.actions{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+.btn-primary{
+  appearance:none;border:0;cursor:pointer;width:100%;
+  background:linear-gradient(180deg,var(--brick-soft),var(--brick));
+  color:#fff8f2;font-family:var(--serif);font-size:18px;letter-spacing:.1em;
+  padding:16px 18px;border-radius:14px;
+  box-shadow:0 10px 22px -12px rgba(168,52,42,.85),0 1px 0 rgba(255,255,255,.25) inset;
+  transition:transform .16s,filter .16s;
+}
+.btn-primary:active{transform:translateY(1px) scale(.99);filter:brightness(.96)}
+.btn-primary[disabled]{opacity:.55;filter:grayscale(.2)}
+.btn-ghost{
+  appearance:none;cursor:pointer;width:100%;background:transparent;border:1px solid var(--line);
+  color:var(--ink-2);font-family:var(--sans);font-size:14.5px;padding:12px 18px;border-radius:13px;
+  transition:.18s;
+}
+.btn-ghost:active{background:rgba(255,255,255,.8)}
+.hint{margin:12px 2px 0;font-size:12.5px;color:var(--ink-3);line-height:1.7}
+
+/* ---------------- 阅读页 ---------------- */
+.screen{display:none;animation:fade .5s ease both}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.loc{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:var(--serif);font-size:13.5px;color:var(--ink-3);letter-spacing:.06em;
+}
+.loc .pin{color:var(--brick);font-size:15px}
+.loc .cities{color:var(--ink-2);font-weight:600;letter-spacing:.1em}
+
+.copy{position:relative;padding:2px 0 0}
+.copy .lead{
+  font-family:var(--serif);font-weight:600;letter-spacing:.03em;
+  font-size:clamp(24px,7.4vw,32px);line-height:1.4;margin:16px 0 0;color:var(--ink);
+}
+.copy .body p{
+  margin:18px 0 0;font-family:var(--serif);font-size:17px;line-height:2.05;
+  color:var(--ink-2);letter-spacing:.015em;text-align:justify;
+}
+.copy .body p:first-child{margin-top:22px}
+.copy .body p:last-child{color:var(--ink);font-weight:600}
+.copy .sign{
+  margin-top:24px;font-family:var(--serif);font-size:14px;color:var(--ink-3);
+  letter-spacing:.08em;display:flex;align-items:center;gap:10px;
+}
+.copy .sign::before{content:"";width:26px;height:1px;background:var(--line)}
+.item{opacity:0;transform:translateY(9px);transition:opacity .62s ease,transform .62s cubic-bezier(.22,.8,.3,1)}
+.item.in{opacity:1;transform:none}
+
+/* ---------------- 骨架 ---------------- */
+.skel{margin-top:8px}
+.skel i{display:block;height:13px;border-radius:7px;margin-top:14px;
+  background:linear-gradient(90deg,rgba(120,95,70,.09),rgba(120,95,70,.16),rgba(120,95,70,.09));
+  background-size:200% 100%;animation:sh 1.25s linear infinite}
+.skel i:nth-child(2){width:88%} .skel i:nth-child(3){width:74%} .skel i:nth-child(4){width:62%}
+@keyframes sh{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* ---------------- 再次进入的入口 ---------------- */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.tile{
+  appearance:none;cursor:pointer;text-align:left;background:rgba(255,253,248,.72);
+  border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--ink-2);
+  font-family:var(--sans);font-size:14px;transition:.18s;
+}
+.tile:active{transform:scale(.98);background:#fff}
+.tile b{display:block;font-family:var(--serif);font-size:15px;color:var(--ink);margin-bottom:3px}
+.tile span{font-size:12px;color:var(--ink-3)}
+
+.foot{margin-top:26px;text-align:center;font-size:12px;color:var(--ink-3);letter-spacing:.06em;line-height:2}
+
+/* ---------------- 城市选择面板 ---------------- */
+.sheet{
+  position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:flex-end;
+  background:rgba(33,26,21,.42);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .26s;
+}
+.sheet.on{opacity:1;pointer-events:auto}
+.sheet-in{
+  background:var(--paper);border-radius:20px 20px 0 0;max-height:86vh;display:flex;flex-direction:column;
+  transform:translateY(14px);transition:transform .3s cubic-bezier(.22,.8,.3,1);
+  box-shadow:0 -14px 40px -20px rgba(60,40,25,.5);
+}
+.sheet.on .sheet-in{transform:none}
+.sheet-hd{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px 12px;border-bottom:1px solid var(--line);
+}
+.sheet-hd h3{margin:0;font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.06em}
+.sheet-bd{overflow:auto;padding:8px 18px calc(var(--safe-b) + 18px);-webkit-overflow-scrolling:touch}
+.grp{margin-top:14px}
+.grp h4{margin:0 0 9px;font-family:var(--serif);font-size:13px;color:var(--ink-3);font-weight:600;letter-spacing:.14em}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink-2);
+  font-size:14px;padding:9px 13px;border-radius:999px;transition:.16s;font-family:var(--sans);
+}
+.chip:active{transform:scale(.95)}
+.chip[data-home="1"]{border-color:rgba(168,52,42,.4);color:var(--brick);background:rgba(168,52,42,.06)}
+
+.toast{
+  position:fixed;left:50%;bottom:calc(var(--safe-b) + 26px);transform:translate(-50%,12px);
+  background:rgba(33,26,21,.92);color:#f7f1e6;font-size:13.5px;padding:11px 16px;border-radius:999px;
+  z-index:60;opacity:0;pointer-events:none;transition:.26s;max-width:82vw;text-align:center;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+  .item{opacity:1;transform:none}
+}
+@media (min-width:620px){
+  .wrap{padding-top:38px}
+  .card{padding:34px 32px 30px;border-radius:20px}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">石 家 庄 · 同 乡 书</div>
+    <button class="btn-plain" id="btnPickTop" type="button">换个城市</button>
+  </div>
 
-  <h1>三角洲行动</h1>
-  <!-- ===== 叫人的话：改这里 ===== -->
-  <p>烽火地带开黑，速来。</p>
-  <a href="#" id="go">直接打开游戏 →</a>
+  <!-- ============ 首屏：纯本地渲染，不等待任何网络 ============ -->
+  <section class="card screen on" id="screenCover">
+    <span class="seal"><i></i>在 外 的 石 家 庄 人</span>
+    <h1>你在哪座城，<br /><span class="accent">石家庄</span>都还认得你。</h1>
+    <p class="sub">
+      一句话，写给从石家庄走出去、现在散在各地的我们。<br />
+      按你此刻的位置，给你一段只属于那座城的话。
+    </p>
+    <div class="rule"></div>
+    <div class="meta" id="meta">
+      <span id="metaText">正在感知你在哪座城市</span>
+      <span class="dot"></span>
+      <span>文案已就绪</span>
+    </div>
+    <div class="actions">
+      <button class="btn-primary" id="btnStart" type="button">看看写给我的那段话</button>
+      <button class="btn-ghost" id="btnPick" type="button">我不在常用的城市 · 手动选</button>
+    </div>
+    <p class="hint">位置只用在你手机上这一次，不会被保存，也不会上传给别人。定位不准的话，随时可以自己选城市。</p>
+  </section>
 
-  <script>
-    /* 点链接时按设备拉起游戏：
-       安卓直接唤起游戏（没装跳官网），苹果走官方唤起页，电脑拉起 WeGame 版 */
-    document.getElementById('go').addEventListener('click', function (e) {
-      e.preventDefault();
-      var ua = navigator.userAgent;
-      if (/android/i.test(ua)) {
-        location.href = 'intent://#Intent;package=com.tencent.tmgp.dfm;' +
-                        'S.browser_fallback_url=' + encodeURIComponent('https://df.qq.com/') + ';end';
-      } else if (/iphone|ipad|ipod/i.test(ua)) {
-        location.href = 'https://df.qq.com/zlkdatasys/mct/d/play.shtml?device=ios';
-      } else {
-        /* 电脑：拉起 WeGame 客户端；页面失焦说明唤起了，没唤起则跳 WeGame 官网下载 */
-        var launched = false;
-        window.addEventListener('blur', function () { launched = true; });
-        document.addEventListener('visibilitychange', function () {
-          if (document.hidden) launched = true;
-        });
-        location.href = 'tencentwegame://';
-        setTimeout(function () {
-          if (!launched) location.href = 'https://www.wegame.com.cn/';
-        }, 2500);
-      }
-    });
-  </script>
+  <!-- ============ 阅读页 ============ -->
+  <section class="card screen" id="screenRead">
+    <div class="loc">
+      <span class="pin">◎</span>
+      <span>你现在在</span>
+      <span class="cities" id="locCity">—</span>
+      <span class="dot"></span>
+      <button class="btn-plain" id="btnPick2" type="button" style="padding:5px 10px;font-size:12px">不准？换</button>
+    </div>
 
+    <div class="copy" id="copyBox" hidden>
+      <p class="lead" id="lead"></p>
+      <div class="body" id="body"></div>
+      <div class="sign">写给 石家庄 · <span id="signWho">同乡</span></div>
+    </div>
+
+    <div class="skel" id="skel"><i></i><i></i><i></i><i></i></div>
+
+    <div class="tiles" id="tiles" hidden>
+      <button class="tile" id="btnCopy" type="button"><b>复制这段话</b><span>发给同乡，看看他在哪</span></button>
+      <button class="tile" id="btnShare" type="button"><b>分享到微信</b><span>右上角 · 发给同乡</span></button>
+      <button class="tile" id="btnAgain" type="button"><b>再读一遍</b><span>重新播一次这段字</span></button>
+      <button class="tile" id="btnPick3" type="button"><b>看看别的城市</b><span>手动挑一个地方</span></button>
+    </div>
+
+    <div class="foot">— 不管走多远，中山路还是那条中山路 —</div>
+  </section>
+</div>
+
+<!-- ============ 城市选择面板 ============ -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="选择城市">
+  <div class="sheet-in">
+    <div class="sheet-hd">
+      <h3>你现在在哪座城？</h3>
+      <button class="btn-plain" id="sheetClose" type="button">关闭</button>
+    </div>
+    <div class="sheet-bd" id="sheetBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     顺序很重要，也是这套东西的关键设计：
+     1) copies.js —— 纯数据、纯本地，同步执行，几百 KB 以内，秒出文案；
+     2) app.js    —— 启动后才去发定位请求。
+     所以"进初始界面"这件事，一次网络请求都不需要等。
+     ============================================================ -->
+<script src="copies.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
